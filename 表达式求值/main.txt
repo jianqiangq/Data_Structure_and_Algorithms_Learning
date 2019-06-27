@@ -1,0 +1,130 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <stack>
+using namespace std;
+
+
+// 解析字符串 ：(+ (* 2 3)(^ 4)) = 11
+// (+ 2 3) =5
+// ^ 自增运算符
+// + 加法
+// * 乘法
+
+int main()
+{
+    vector<int> s;
+    int top = -1;
+    vector<char> c_s;
+    int c_top = -1;
+
+    int count_l = 0; //左括号数量
+    int count_r = 0; //右括号数量
+
+    char str[1000];
+    cin.get(str, 1000);
+    int value=0; //数值
+    int flag=0;  //连续罗马数字个数
+
+    int pre=0;
+    int cur=0;
+
+    int all_value = 0;
+
+
+    int i =0;
+    for(int i=0; i<1000; i++){
+        if(count_r > count_l) {
+            //表达式错误
+            break;
+        }
+
+        cout<<i<<":"<<str[i]<<endl;
+        if(str[i]=='\0')
+            break;
+
+        if(str[i] == '('){
+            count_l++;
+            flag=0;
+            continue;
+        }
+
+        if(str[i] == '+' || str[i] == '*' || str[i] == '^') {
+            c_s.push_back(str[i]);
+            c_top++;
+        }
+
+
+        if(str[i] == ')'){
+            if(flag>0){
+                s.push_back(value);
+                top++;
+            }
+            value =0;
+            flag=0;
+
+            count_r++;
+
+            if(c_top == -1){
+                int a = s[top];
+                s.pop_back();
+                top--;
+                int b = s[top];
+                s.pop_back();
+                top--;
+                all_value += (a+b);
+                continue;
+            }
+
+            char op = c_s[c_top];
+            c_s.pop_back();
+            c_top--;
+
+            if(op == '^'){
+
+                int a = s[top];
+                s.pop_back();
+                top--;
+                all_value += (++a);
+                continue;
+            }
+
+            int a = s[top];
+            s.pop_back();
+            top--;
+            int b = s[top];
+            s.pop_back();
+            top--;
+
+            if(op == '+' ){
+                all_value += (a+b);
+                continue;
+            }
+
+            if(op == '*' ){
+                all_value += (a*b);
+                continue;
+            }
+        }
+
+        if(str[i] == ' '){
+            if(flag>0){
+                s.push_back(value);
+                top++;
+            }
+            flag=0;
+            value = 0;
+            continue;
+        }
+
+        if(str[i]>='0' && str[i]<='9'){
+            value += (str[i]-'0')*(pow(10, flag));
+            flag++;
+        }
+    }
+
+    cout<<all_value<<endl;
+
+
+
+}
