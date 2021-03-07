@@ -56,7 +56,7 @@ int main()
     }
 
     ioFile.seekp(2*sizeof(CStudent), ios::beg); //定位写指针到第三个记录
-    ioFile.write("Mike", strlen("Mike"+1));
+    ioFile.write("Mike", strlen("Mike")+1);
     ioFile.seekg(0, ios::beg); //定位到开头指针
     while(ioFile.read((char*) &s, sizeof(s)))
         cout << s.szName << " " << s.nScore << endl;
