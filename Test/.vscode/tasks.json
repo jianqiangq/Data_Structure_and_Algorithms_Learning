@@ -6,12 +6,12 @@
         {
             "label": "cpp",
             "type": "shell",
-            "command": "g++",
+            "command": "clang++",
             "args": [
                 "${file}",
                 "-g",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe"
+                "${fileDirname}/${fileBasenameNoExtension}.out"
                 
             ],
             "group": {
