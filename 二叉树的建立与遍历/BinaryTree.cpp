@@ -127,7 +127,7 @@ int LastOrderTravesal(BinaryTree BT)
             T = T->left;
         }
 
-        int flag = 1;                     // 辅助变量flag为1表示当前结点的左孩子为空或者已被访问
+        int flag = 1;                     // 辅助变量flag为1表示当前结点的左孩子为空或者当前结点的左孩子已被访问
         BinaryTree pre = NULL;            // 指针变量p指向当前结点的前驱结点
 
         while(flag == 1 && !st.empty())
@@ -140,7 +140,7 @@ int LastOrderTravesal(BinaryTree BT)
                 pre = T;                  // 指针变量指向当前结点
                 T = NULL;
             }
-            else                          // 如果当前结点右孩子不为空，则先去处理右孩子
+            else                          // 如果当前结点右孩子不为空，则先去处理右孩子。或者访问完左孩子，右孩子为空。总之就是访问完左孩子，不管右孩子为空与否
             {
                 T = T->right;             // 处理右孩子
                 flag = 0;                 // T的左孩子未被访问，flag置为0
